@@ -1,0 +1,13 @@
+{
+  "itemGroup.creepyspooky": "Example Mod Tab",
+  "block.creepyspooky.example_block": "Example Block",
+  "item.creepyspooky.example_item": "Example Item",
+
+  "creepyspooky.configuration.title": "CreepySpooky Configs",
+  "creepyspooky.configuration.section.creepyspooky.common.toml": "CreepySpooky Configs",
+  "creepyspooky.configuration.section.creepyspooky.common.toml.title": "CreepySpooky Configs",
+  "creepyspooky.configuration.items": "Item List",
+  "creepyspooky.configuration.logDirtBlock": "Log Dirt Block",
+  "creepyspooky.configuration.magicNumberIntroduction": "Magic Number Text",
+  "creepyspooky.configuration.magicNumber": "Magic Number"
+}
