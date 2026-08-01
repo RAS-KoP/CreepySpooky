@@ -1,0 +1,26 @@
+package io.github.ras_kop.creepyspooky.register;
+
+import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.entity.TestEntity;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+public class EntityRegister {
+    
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
+        DeferredRegister.create(Registries.ENTITY_TYPE, CreepySpooky.MODID);
+
+    public static final DeferredHolder<EntityType<?>, EntityType<TestEntity>> TEST_ENTITY = 
+        ENTITY_TYPES.register(
+            TestEntity.ENTITY_ID,
+            () -> EntityType.Builder.<TestEntity>of(
+                TestEntity::new,
+                MobCategory.CREATURE
+            )
+            .sized(1.0F, 1.0F)
+            .build(TestEntity.ENTITY_ID)
+        );
+}

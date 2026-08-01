@@ -4,6 +4,10 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import io.github.ras_kop.creepyspooky.entity.TestEntity;
+import io.github.ras_kop.creepyspooky.register.AttributesRegister;
+import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
+import io.github.ras_kop.creepyspooky.register.EntityRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -23,8 +27,10 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -76,10 +82,19 @@ public class CreepySpooky {
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
+        EntityRegister.ENTITY_TYPES.register(modEventBus);
+        modEventBus.addListener(AttributesRegister::registerAttributes);
+
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (CreepySpooky) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
+        
+        if(FMLEnvironment.dist == Dist.CLIENT) {
+            modEventBus.addListener(
+                EntityModelRegister::register
+            );
+        }
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -114,4 +129,5 @@ public class CreepySpooky {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
+
 }
