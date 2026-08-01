@@ -7,11 +7,11 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import net.minecraft.resources.ResourceLocation;
 
 public class TestEntityModel
-        extends DefaultedEntityGeoModel<TestEntity> {
+    extends DefaultedEntityGeoModel<TestEntity> {
 
     public TestEntityModel() {
         super(ResourceLocation.fromNamespaceAndPath(
                 CreepySpooky.MODID,
                 TestEntity.ENTITY_ID));
-    }
+    } 
 }
