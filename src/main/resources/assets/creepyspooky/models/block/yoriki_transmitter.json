@@ -1,4 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": { "all": "minecraft:block/copper_block" }
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/copper_block",
+    "up": "minecraft:block/copper_block",
+    "north": "minecraft:block/redstone_block",
+    "south": "minecraft:block/emerald_block",
+    "west": "minecraft:block/copper_block",
+    "east": "minecraft:block/copper_block",
+    "particle": "minecraft:block/copper_block"
+  }
 }

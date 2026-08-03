@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiCableBlockEntity;
 import io.github.ras_kop.creepyspooky.yoriki.block.entity.CreativeYorikiPoolBlockEntity;
 import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiFurnaceBlockEntity;
 import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiReceiverBlockEntity;
@@ -31,6 +32,10 @@ public final class YorikiBlockEntityRegister {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<YorikiFurnaceBlockEntity>> YORIKI_FURNACE = BLOCK_ENTITY_TYPES.register(
         "yoriki_furnace",
         () -> BlockEntityType.Builder.of(YorikiFurnaceBlockEntity::new, YorikiBlockRegister.YORIKI_FURNACE.get()).build(null)
+    );
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<YorikiCableBlockEntity>> YORIKI_CABLE = BLOCK_ENTITY_TYPES.register(
+        "yoriki_cable",
+        () -> BlockEntityType.Builder.of(YorikiCableBlockEntity::new, YorikiBlockRegister.YORIKI_CABLE.get()).build(null)
     );
 
     private YorikiBlockEntityRegister() {

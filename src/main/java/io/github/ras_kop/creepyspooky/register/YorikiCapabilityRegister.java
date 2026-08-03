@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.yoriki.block.entity.CreativeYorikiPoolBlockEntity;
+import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiCableBlockEntity;
 import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiEnergyBlockEntity;
 import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiFurnaceBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -30,6 +31,11 @@ public final class YorikiCapabilityRegister {
             Capabilities.EnergyStorage.BLOCK,
             YorikiBlockEntityRegister.YORIKI_FURNACE.get(),
             YorikiFurnaceBlockEntity::getEnergyStorage
+        );
+        event.registerBlockEntity(
+            Capabilities.EnergyStorage.BLOCK,
+            YorikiBlockEntityRegister.YORIKI_CABLE.get(),
+            YorikiCableBlockEntity::getEnergyStorage
         );
     }
 }

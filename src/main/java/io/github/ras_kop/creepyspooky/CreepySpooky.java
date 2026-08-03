@@ -74,6 +74,7 @@ public class CreepySpooky {
                 output.accept(YorikiBlockRegister.YORIKI_TRANSMITTER_ITEM.get());
                 output.accept(YorikiBlockRegister.YORIKI_RECEIVER_ITEM.get());
                 output.accept(YorikiBlockRegister.YORIKI_FURNACE_ITEM.get());
+                output.accept(YorikiBlockRegister.YORIKI_CABLE_ITEM.get());
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.

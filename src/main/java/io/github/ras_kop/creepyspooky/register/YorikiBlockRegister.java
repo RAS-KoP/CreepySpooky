@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.yoriki.block.YorikiCableBlock;
 import io.github.ras_kop.creepyspooky.yoriki.block.CreativeYorikiPoolBlock;
 import io.github.ras_kop.creepyspooky.yoriki.block.YorikiFurnaceBlock;
 import io.github.ras_kop.creepyspooky.yoriki.block.YorikiReceiverBlock;
@@ -33,11 +34,16 @@ public final class YorikiBlockRegister {
         "yoriki_furnace",
         () -> new YorikiFurnaceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F))
     );
+    public static final DeferredBlock<Block> YORIKI_CABLE = BLOCKS.register(
+        "yoriki_cable",
+        () -> new YorikiCableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(1.5F))
+    );
 
     public static final DeferredItem<BlockItem> CREATIVE_YORIKI_POOL_ITEM = ITEMS.registerSimpleBlockItem("creative_yoriki_pool", CREATIVE_YORIKI_POOL);
     public static final DeferredItem<BlockItem> YORIKI_TRANSMITTER_ITEM = ITEMS.registerSimpleBlockItem("yoriki_transmitter", YORIKI_TRANSMITTER);
     public static final DeferredItem<BlockItem> YORIKI_RECEIVER_ITEM = ITEMS.registerSimpleBlockItem("yoriki_receiver", YORIKI_RECEIVER);
     public static final DeferredItem<BlockItem> YORIKI_FURNACE_ITEM = ITEMS.registerSimpleBlockItem("yoriki_furnace", YORIKI_FURNACE);
+    public static final DeferredItem<BlockItem> YORIKI_CABLE_ITEM = ITEMS.registerSimpleBlockItem("yoriki_cable", YORIKI_CABLE);
 
     private YorikiBlockRegister() {
     }
