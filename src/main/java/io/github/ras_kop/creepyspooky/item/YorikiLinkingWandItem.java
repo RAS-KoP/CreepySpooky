@@ -1,9 +1,9 @@
-package io.github.ras_kop.creepyspooky.yoriki.item;
+package io.github.ras_kop.creepyspooky.item;
 
 import javax.annotation.Nullable;
 
-import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiReceiverBlockEntity;
-import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiTransmitterBlockEntity;
+import io.github.ras_kop.creepyspooky.block.entity.YorikiReceiverBlockEntity;
+import io.github.ras_kop.creepyspooky.block.entity.YorikiTransmitterBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;

@@ -1,4 +1,4 @@
-package io.github.ras_kop.creepyspooky.yoriki.block;
+package io.github.ras_kop.creepyspooky.block;
 
 import com.mojang.serialization.MapCodec;
 

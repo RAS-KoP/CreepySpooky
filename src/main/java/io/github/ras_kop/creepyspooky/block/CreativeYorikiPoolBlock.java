@@ -1,9 +1,9 @@
-package io.github.ras_kop.creepyspooky.yoriki.block;
+package io.github.ras_kop.creepyspooky.block;
 
 import com.mojang.serialization.MapCodec;
 
+import io.github.ras_kop.creepyspooky.block.entity.CreativeYorikiPoolBlockEntity;
 import io.github.ras_kop.creepyspooky.register.YorikiBlockEntityRegister;
-import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiCableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -14,15 +14,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-public final class YorikiCableBlock extends BaseEntityBlock {
-    public static final MapCodec<YorikiCableBlock> CODEC = simpleCodec(YorikiCableBlock::new);
+public final class CreativeYorikiPoolBlock extends BaseEntityBlock {
+    public static final MapCodec<CreativeYorikiPoolBlock> CODEC = simpleCodec(CreativeYorikiPoolBlock::new);
 
-    public YorikiCableBlock(BlockBehaviour.Properties properties) {
+    public CreativeYorikiPoolBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
     @Override
-    public MapCodec<YorikiCableBlock> codec() {
+    public MapCodec<CreativeYorikiPoolBlock> codec() {
         return CODEC;
     }
 
@@ -33,15 +33,15 @@ public final class YorikiCableBlock extends BaseEntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new YorikiCableBlockEntity(pos, state);
+        return new CreativeYorikiPoolBlockEntity(pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         return level.isClientSide ? null : createTickerHelper(
             blockEntityType,
-            YorikiBlockEntityRegister.YORIKI_CABLE.get(),
-            YorikiCableBlockEntity::serverTick
+            YorikiBlockEntityRegister.CREATIVE_YORIKI_POOL.get(),
+            CreativeYorikiPoolBlockEntity::serverTick
         );
     }
 }

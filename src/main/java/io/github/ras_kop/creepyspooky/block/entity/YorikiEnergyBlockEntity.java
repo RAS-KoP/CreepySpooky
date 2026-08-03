@@ -1,4 +1,4 @@
-package io.github.ras_kop.creepyspooky.yoriki.block.entity;
+package io.github.ras_kop.creepyspooky.block.entity;
 
 import javax.annotation.Nullable;
 
@@ -40,7 +40,7 @@ public abstract class YorikiEnergyBlockEntity extends BlockEntity {
         if (side == null) {
             return energyStorage;
         }
-        Direction facing = getBlockState().getValue(io.github.ras_kop.creepyspooky.yoriki.block.YorikiDirectionalBlock.FACING);
+        Direction facing = getBlockState().getValue(io.github.ras_kop.creepyspooky.block.YorikiDirectionalBlock.FACING);
         if (side == facing.getOpposite()) {
             return inputStorage;
         }
@@ -51,7 +51,7 @@ public abstract class YorikiEnergyBlockEntity extends BlockEntity {
     }
 
     protected final void pushEnergy(Level level) {
-        Direction facing = getBlockState().getValue(io.github.ras_kop.creepyspooky.yoriki.block.YorikiDirectionalBlock.FACING);
+        Direction facing = getBlockState().getValue(io.github.ras_kop.creepyspooky.block.YorikiDirectionalBlock.FACING);
         YorikiTransfer.pushEnergy(level, getBlockPos(), energyStorage, facing);
     }
 

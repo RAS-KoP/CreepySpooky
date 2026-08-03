@@ -1,4 +1,4 @@
-package io.github.ras_kop.creepyspooky.yoriki.block.entity;
+package io.github.ras_kop.creepyspooky.block.entity;
 
 import javax.annotation.Nullable;
 

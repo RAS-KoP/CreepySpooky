@@ -1,11 +1,11 @@
-package io.github.ras_kop.creepyspooky.yoriki.block.entity;
+package io.github.ras_kop.creepyspooky.block.entity;
 
 import javax.annotation.Nullable;
 
 import io.github.ras_kop.creepyspooky.register.YorikiBlockEntityRegister;
 import io.github.ras_kop.creepyspooky.yoriki.YorikiConstants;
 import io.github.ras_kop.creepyspooky.yoriki.YorikiSidedStorage;
-import io.github.ras_kop.creepyspooky.yoriki.block.YorikiDirectionalBlock;
+import io.github.ras_kop.creepyspooky.block.YorikiDirectionalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

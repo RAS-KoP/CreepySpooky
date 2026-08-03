@@ -50,11 +50,13 @@ NeoForge 21.1.247 の標準 `IEnergyStorage` と `Capabilities.EnergyStorage.BLO
 
 - `yoriki/YorikiEnergyStorage.java`: 容量・入出力上限付きの妖力ストレージ。
 - `yoriki/YorikiTransfer.java`: 隣接ブロックへ妖力を送る処理。
-- `register/YorikiBlockRegister.java`: 5ブロック、BlockItem、接続の杖の登録。
+- `register/BlockRegister.java`: サンプルブロックと妖力ブロックの登録。
+- `register/ItemRegister.java`: サンプルアイテム、BlockItem、接続の杖の登録。
 - `register/YorikiBlockEntityRegister.java`: BlockEntityTypeの登録。
 - `register/YorikiCapabilityRegister.java`: NeoForge Energy capabilityの登録。
-- `yoriki/block/entity/*`: 妖力プール、送信機、受信機、かまど、ケーブルの状態とtick処理。
-- `yoriki/item/YorikiLinkingWandItem.java`: 送信機・受信機の無線接続登録と解除。
+- `block/*`: 妖力プール、送信機、受信機、かまど、ケーブルのBlock実装。
+- `block/entity/*`: 妖力プール、送信機、受信機、かまど、ケーブルの状態とtick処理。
+- `item/YorikiLinkingWandItem.java`: 送信機・受信機の無線接続登録と解除。
 - `assets/` と `data/`: BlockState、モデル、翻訳、ドロップ定義。
 
 ## 実装手順
@@ -80,16 +82,18 @@ NeoForge 21.1.247 の標準 `IEnergyStorage` と `Capabilities.EnergyStorage.BLO
 - 送信機を入力専用、受信機を正面出力専用へ整理し、無線転送へ対応。
 - 送信機・受信機を登録する妖力接続の杖と、接続情報のNBT保存を追加。
 - 送信機・受信機・ケーブル・接続の杖のテクスチャを追加。
+- ガイドラインに合わせてBlock、BlockEntity、Itemを共通パッケージへ整理し、ブロック登録とアイテム登録を分離。
 - 5ブロックの登録、Capability、BlockEntity、モデル、翻訳、ドロップ定義を追加。
 - 実装時のAI利用範囲は、NeoForge APIに合わせた一メソッド単位のコード補助と、実装手順・変更記録の文章化に限定した。
 
 ### 追加ファイル
 
 - `yoriki/`: 妖力定数、ストレージ、Capability経由の転送処理。
-- `yoriki/block/`: 妖力プール、送信機、受信機、かまど、ケーブルのBlock実装。
-- `yoriki/block/entity/`: 5ブロックのBlockEntity実装。
-- `yoriki/item/YorikiLinkingWandItem.java`: 無線接続の登録・解除。
-- `register/YorikiBlockRegister.java`: ブロックとBlockItemの登録。
+- `block/`: 妖力プール、送信機、受信機、かまど、ケーブルのBlock実装。
+- `block/entity/`: 5ブロックのBlockEntity実装。
+- `item/YorikiLinkingWandItem.java`: 無線接続の登録・解除。
+- `register/BlockRegister.java`: ブロックの登録。
+- `register/ItemRegister.java`: アイテムの登録。
 - `register/YorikiBlockEntityRegister.java`: BlockEntityTypeの登録。
 - `register/YorikiCapabilityRegister.java`: Energy capabilityの登録。
 - `assets/creepyspooky/blockstates/`: 5ブロックの状態定義。

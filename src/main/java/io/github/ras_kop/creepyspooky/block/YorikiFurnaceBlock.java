@@ -1,8 +1,8 @@
-package io.github.ras_kop.creepyspooky.yoriki.block;
+package io.github.ras_kop.creepyspooky.block;
 
 import com.mojang.serialization.MapCodec;
 
-import io.github.ras_kop.creepyspooky.yoriki.block.entity.YorikiFurnaceBlockEntity;
+import io.github.ras_kop.creepyspooky.block.entity.YorikiFurnaceBlockEntity;
 import io.github.ras_kop.creepyspooky.register.YorikiBlockEntityRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;

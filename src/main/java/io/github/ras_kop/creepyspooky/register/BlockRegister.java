@@ -1,23 +1,24 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
-import io.github.ras_kop.creepyspooky.yoriki.block.YorikiCableBlock;
-import io.github.ras_kop.creepyspooky.yoriki.block.CreativeYorikiPoolBlock;
-import io.github.ras_kop.creepyspooky.yoriki.block.YorikiFurnaceBlock;
-import io.github.ras_kop.creepyspooky.yoriki.block.YorikiReceiverBlock;
-import io.github.ras_kop.creepyspooky.yoriki.block.YorikiTransmitterBlock;
-import io.github.ras_kop.creepyspooky.yoriki.item.YorikiLinkingWandItem;
-import net.minecraft.world.item.BlockItem;
+import io.github.ras_kop.creepyspooky.block.CreativeYorikiPoolBlock;
+import io.github.ras_kop.creepyspooky.block.YorikiCableBlock;
+import io.github.ras_kop.creepyspooky.block.YorikiFurnaceBlock;
+import io.github.ras_kop.creepyspooky.block.YorikiReceiverBlock;
+import io.github.ras_kop.creepyspooky.block.YorikiTransmitterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public final class YorikiBlockRegister {
+public final class BlockRegister {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CreepySpooky.MODID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(CreepySpooky.MODID);
+
+    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock(
+        "example_block",
+        BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+    );
 
     public static final DeferredBlock<Block> CREATIVE_YORIKI_POOL = BLOCKS.register(
         "creative_yoriki_pool",
@@ -40,16 +41,6 @@ public final class YorikiBlockRegister {
         () -> new YorikiCableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(1.5F))
     );
 
-    public static final DeferredItem<BlockItem> CREATIVE_YORIKI_POOL_ITEM = ITEMS.registerSimpleBlockItem("creative_yoriki_pool", CREATIVE_YORIKI_POOL);
-    public static final DeferredItem<BlockItem> YORIKI_TRANSMITTER_ITEM = ITEMS.registerSimpleBlockItem("yoriki_transmitter", YORIKI_TRANSMITTER);
-    public static final DeferredItem<BlockItem> YORIKI_RECEIVER_ITEM = ITEMS.registerSimpleBlockItem("yoriki_receiver", YORIKI_RECEIVER);
-    public static final DeferredItem<BlockItem> YORIKI_FURNACE_ITEM = ITEMS.registerSimpleBlockItem("yoriki_furnace", YORIKI_FURNACE);
-    public static final DeferredItem<BlockItem> YORIKI_CABLE_ITEM = ITEMS.registerSimpleBlockItem("yoriki_cable", YORIKI_CABLE);
-    public static final DeferredItem<YorikiLinkingWandItem> YORIKI_LINKING_WAND = ITEMS.register(
-        "yoriki_linking_wand",
-        () -> new YorikiLinkingWandItem(new net.minecraft.world.item.Item.Properties().stacksTo(1))
-    );
-
-    private YorikiBlockRegister() {
+    private BlockRegister() {
     }
 }
