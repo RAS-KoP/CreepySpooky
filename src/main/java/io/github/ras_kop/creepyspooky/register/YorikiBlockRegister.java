@@ -6,6 +6,7 @@ import io.github.ras_kop.creepyspooky.yoriki.block.CreativeYorikiPoolBlock;
 import io.github.ras_kop.creepyspooky.yoriki.block.YorikiFurnaceBlock;
 import io.github.ras_kop.creepyspooky.yoriki.block.YorikiReceiverBlock;
 import io.github.ras_kop.creepyspooky.yoriki.block.YorikiTransmitterBlock;
+import io.github.ras_kop.creepyspooky.yoriki.item.YorikiLinkingWandItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -44,6 +45,10 @@ public final class YorikiBlockRegister {
     public static final DeferredItem<BlockItem> YORIKI_RECEIVER_ITEM = ITEMS.registerSimpleBlockItem("yoriki_receiver", YORIKI_RECEIVER);
     public static final DeferredItem<BlockItem> YORIKI_FURNACE_ITEM = ITEMS.registerSimpleBlockItem("yoriki_furnace", YORIKI_FURNACE);
     public static final DeferredItem<BlockItem> YORIKI_CABLE_ITEM = ITEMS.registerSimpleBlockItem("yoriki_cable", YORIKI_CABLE);
+    public static final DeferredItem<YorikiLinkingWandItem> YORIKI_LINKING_WAND = ITEMS.register(
+        "yoriki_linking_wand",
+        () -> new YorikiLinkingWandItem(new net.minecraft.world.item.Item.Properties().stacksTo(1))
+    );
 
     private YorikiBlockRegister() {
     }

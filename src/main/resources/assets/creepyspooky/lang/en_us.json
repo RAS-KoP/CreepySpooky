@@ -7,7 +7,15 @@
   "block.creepyspooky.yoriki_receiver": "Yoriki Receiver",
   "block.creepyspooky.yoriki_furnace": "Yoriki Furnace",
   "block.creepyspooky.yoriki_cable": "Yoriki Cable",
+  "item.creepyspooky.yoriki_linking_wand": "Yoriki Linking Wand",
   "container.creepyspooky.yoriki_furnace": "Yoriki Furnace",
+
+  "message.creepyspooky.yoriki_transmitter_selected": "Yoriki transmitter selected. Right-click a receiver to register it.",
+  "message.creepyspooky.yoriki_connection_registered": "Yoriki wireless connection registered.",
+  "message.creepyspooky.yoriki_connection_cleared": "Yoriki wireless connection cleared.",
+  "message.creepyspooky.yoriki_select_transmitter_first": "Select a Yoriki transmitter first.",
+  "message.creepyspooky.yoriki_same_dimension_required": "Transmitter and receiver must be in the same dimension.",
+  "message.creepyspooky.yoriki_transmitter_missing": "The selected Yoriki transmitter is no longer available.",
 
   "creepyspooky.configuration.title": "CreepySpooky Configs",
   "creepyspooky.configuration.section.creepyspooky.common.toml": "CreepySpooky Configs",

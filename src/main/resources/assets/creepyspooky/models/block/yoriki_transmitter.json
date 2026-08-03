@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "down": "minecraft:block/copper_block",
-    "up": "minecraft:block/copper_block",
-    "north": "minecraft:block/redstone_block",
-    "south": "minecraft:block/emerald_block",
-    "west": "minecraft:block/copper_block",
-    "east": "minecraft:block/copper_block",
-    "particle": "minecraft:block/copper_block"
+    "down": "creepyspooky:block/yoriki_device_side",
+    "up": "creepyspooky:block/yoriki_device_side",
+    "north": "creepyspooky:block/yoriki_transmitter_output",
+    "south": "creepyspooky:block/yoriki_transmitter_input",
+    "west": "creepyspooky:block/yoriki_device_side",
+    "east": "creepyspooky:block/yoriki_device_side",
+    "particle": "creepyspooky:block/yoriki_device_side"
   }
 }
