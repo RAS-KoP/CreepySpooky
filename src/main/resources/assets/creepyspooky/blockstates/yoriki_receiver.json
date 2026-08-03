@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "creepyspooky:block/yoriki_receiver" },
+    "facing=east": { "model": "creepyspooky:block/yoriki_receiver", "y": 90 },
+    "facing=south": { "model": "creepyspooky:block/yoriki_receiver", "y": 180 },
+    "facing=west": { "model": "creepyspooky:block/yoriki_receiver", "y": 270 }
+  }
+}

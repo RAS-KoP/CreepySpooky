@@ -8,6 +8,9 @@ import io.github.ras_kop.creepyspooky.entity.TestEntity;
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
 import io.github.ras_kop.creepyspooky.register.EntityRegister;
+import io.github.ras_kop.creepyspooky.register.YorikiBlockEntityRegister;
+import io.github.ras_kop.creepyspooky.register.YorikiBlockRegister;
+import io.github.ras_kop.creepyspooky.register.YorikiCapabilityRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -67,6 +70,10 @@ public class CreepySpooky {
             .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(EXAMPLE_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(YorikiBlockRegister.CREATIVE_YORIKI_POOL_ITEM.get());
+                output.accept(YorikiBlockRegister.YORIKI_TRANSMITTER_ITEM.get());
+                output.accept(YorikiBlockRegister.YORIKI_RECEIVER_ITEM.get());
+                output.accept(YorikiBlockRegister.YORIKI_FURNACE_ITEM.get());
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -81,6 +88,11 @@ public class CreepySpooky {
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+
+        YorikiBlockRegister.BLOCKS.register(modEventBus);
+        YorikiBlockRegister.ITEMS.register(modEventBus);
+        YorikiBlockEntityRegister.BLOCK_ENTITY_TYPES.register(modEventBus);
+        modEventBus.addListener(YorikiCapabilityRegister::registerCapabilities);
 
         EntityRegister.ENTITY_TYPES.register(modEventBus);
         modEventBus.addListener(AttributesRegister::registerAttributes);
