@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
-import io.github.ras_kop.creepyspooky.entity.TestEntity;
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
 import io.github.ras_kop.creepyspooky.register.EntityRegister;
@@ -30,7 +29,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
