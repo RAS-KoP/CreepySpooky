@@ -8,9 +8,9 @@ public interface IYoryokuEnergy {
 
     void setCapacity(int capacity);
 
-    void setEnergy(int energy);
+    void setYoryoku(int energy);
 
-    int receiveEnergy(int amount);
+    int receiveYoryoku(int amount);
 
-    int extractEnergy(int amount);
+    int extractYoryoku(int amount);
 }

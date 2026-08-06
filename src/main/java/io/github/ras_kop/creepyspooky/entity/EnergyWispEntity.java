@@ -3,6 +3,7 @@ package io.github.ras_kop.creepyspooky.entity;
 import javax.annotation.Nonnull;
 
 import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
@@ -27,8 +28,12 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity{
     private final YoryokuEnergyComponent yoryoku_energy = 
         new YoryokuEnergyComponent(2000);
 
+
     public EnergyWispEntity(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
+        this.setNoGravity(true);
+        this.noPhysics = true;
+        this.now_target = 0;
     }
 
 
@@ -82,6 +87,34 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity{
         super.readAdditionalSaveData(tag);
 
         this.yoryoku_energy.setCapacity(tag.getInt("YoryokuEnergyCapacity"));
-        this.yoryoku_energy.setEnergy(tag.getInt("YoryokuEnergyAmount"));
+        this.yoryoku_energy.setYoryoku(tag.getInt("YoryokuEnergyAmount"));
+    }
+
+    
+    //エネルギー系の処理
+
+    private BlockPos targetA;
+    private BlockPos targetB;
+    private int now_target;
+
+    public void setTargetBlock(BlockPos target_a, BlockPos target_b){
+        this.targetA = target_a;
+        this.targetB = target_b;
+    }
+
+    public BlockPos getTargetBlockPos(){
+        if(now_target == 0){
+            return targetA;
+        }else{
+            return targetB;
+        }
+    }
+
+    public void nextTarget(){
+        if(now_target == 0){
+            now_target = 1;
+        }else{
+            now_target = 0;
+        }
     }
 }
