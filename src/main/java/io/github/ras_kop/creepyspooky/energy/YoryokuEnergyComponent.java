@@ -13,7 +13,7 @@ public class YoryokuEnergyComponent implements IYoryokuEnergy {
 
 
     @Override
-    public int getEnergy(){
+    public int getYoryoku(){
         return yoryoku_amount;
     }
 

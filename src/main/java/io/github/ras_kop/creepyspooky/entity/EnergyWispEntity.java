@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import io.github.ras_kop.creepyspooky.api.IYoryokuHolder;
 import io.github.ras_kop.creepyspooky.attribute.EnergyWispAttribute;
 import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
 import net.minecraft.core.BlockPos;
@@ -25,14 +26,17 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 
-public class EnergyWispEntity extends FlyingMob implements GeoEntity{
+public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHolder{
     
     public static final String ENTITY_ID = "energy_wisp";
 
     private final YoryokuEnergyComponent yoryoku_energy = 
         new YoryokuEnergyComponent(2000);
 
-
+    @Override
+    public YoryokuEnergyComponent getEnergyComponent(){
+        return yoryoku_energy;
+    }
 
     public EnergyWispEntity(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
@@ -85,7 +89,7 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity{
     public void addAdditionalSaveData(@Nonnull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
-        tag.putInt("YoryokuEnergyAmount", this.yoryoku_energy.getEnergy());
+        tag.putInt("YoryokuEnergyAmount", this.yoryoku_energy.getYoryoku());
         tag.putInt("YoryokuEnergyCapacity", this.yoryoku_energy.getCapacity());
     }
 

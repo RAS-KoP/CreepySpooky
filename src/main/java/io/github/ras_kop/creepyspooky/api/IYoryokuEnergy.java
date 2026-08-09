@@ -2,7 +2,7 @@ package io.github.ras_kop.creepyspooky.api;
 
 public interface IYoryokuEnergy {
     
-    int getEnergy();
+    int getYoryoku();
 
     int getCapacity();
 
