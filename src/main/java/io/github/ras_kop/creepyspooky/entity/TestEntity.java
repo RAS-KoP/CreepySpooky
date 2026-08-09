@@ -61,7 +61,6 @@ public class TestEntity extends PathfinderMob implements GeoEntity{
         return cache;
     }
 
-    @SuppressWarnings("null")
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 20)

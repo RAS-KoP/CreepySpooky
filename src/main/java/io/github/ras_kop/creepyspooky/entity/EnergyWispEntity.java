@@ -1,7 +1,11 @@
 package io.github.ras_kop.creepyspooky.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
+import io.github.ras_kop.creepyspooky.attribute.EnergyWispAttribute;
 import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -29,11 +33,13 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity{
         new YoryokuEnergyComponent(2000);
 
 
+
     public EnergyWispEntity(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
         this.setNoGravity(true);
         this.noPhysics = true;
         this.now_target = 0;
+        this.state = WorkState.Transport;
     }
 
 
@@ -67,11 +73,12 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity{
         return cache;
     }
 
-    @SuppressWarnings("null")
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 20)
-            .add(Attributes.MOVEMENT_SPEED, 0.25);
+            .add(Attributes.MOVEMENT_SPEED, 0.08)
+            .add(EnergyWispAttribute.YORYOKU_IMPORT_SPEED, 200)
+            .add(EnergyWispAttribute.YORYOKU_EXPORT_SPEED, 200);
     }
 
     @Override
@@ -93,28 +100,45 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity{
     
     //エネルギー系の処理
 
-    private BlockPos targetA;
-    private BlockPos targetB;
-    private int now_target;
+    public enum WorkState{
+        InOut,
+        Transport
+    }
 
-    public void setTargetBlock(BlockPos target_a, BlockPos target_b){
-        this.targetA = target_a;
-        this.targetB = target_b;
+    private WorkState state;
+
+    public WorkState getState(){
+        return state;
+    }
+
+    public void setState(WorkState stat){
+        this.state = stat;
+    }
+
+    private List<BlockPos> targets = new ArrayList<>();
+    private int now_target;
+    
+
+    public void addTargetBlock(BlockPos target){
+        this.targets.add(target);
+    }
+
+    public void setHome(BlockPos home){
+        this.targets.set(0, home);
     }
 
     public BlockPos getTargetBlockPos(){
-        if(now_target == 0){
-            return targetA;
-        }else{
-            return targetB;
-        }
+        return targets.get(now_target);
     }
 
     public void nextTarget(){
-        if(now_target == 0){
-            now_target = 1;
-        }else{
+        if(targets.size() <= 1){
             now_target = 0;
+            return;
+        }
+        now_target++;
+        if(now_target >= targets.size()){
+            now_target -= targets.size()-1;
         }
     }
 }

@@ -80,8 +80,10 @@ public class CreepySpooky {
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
+        AttributesRegister.register(modEventBus);
+
         EntityRegister.ENTITY_TYPES.register(modEventBus);
-        modEventBus.addListener(AttributesRegister::registerAttributes);
+        modEventBus.addListener(EntityRegister::registerAttributes);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (CreepySpooky) to respond directly to events.
