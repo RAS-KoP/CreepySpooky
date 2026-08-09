@@ -1,60 +1,25 @@
 package io.github.ras_kop.creepyspooky.energy;
 
+import io.github.ras_kop.creepyspooky.api.IYoryokuHolder;
 
-public class KekkaiSystemComponent {
+public class KekkaiSystemComponent implements IYoryokuHolder{
     
     private int kekkai_tier;
-    private int yoryoku_amount;
-    private int yoryoku_capacity;
+
+    private final YoryokuEnergyComponent yoryoku_energy =
+        new YoryokuEnergyComponent(2000);
+
+    @Override
+    public YoryokuEnergyComponent getEnergyComponent(){
+        return yoryoku_energy;
+    }
 
     public KekkaiSystemComponent(int tier, int capacity){
         this.kekkai_tier = tier;
-        this.yoryoku_capacity = capacity;
+        this.yoryoku_energy.setCapacity(capacity);
     }
-
 
     public int getTier(){
         return kekkai_tier;
-    }
-
-
-    public int getEnergy(){
-        return yoryoku_amount;
-    }
-
-
-    public int getCapacity(){
-        return yoryoku_capacity;
-    }
-
-
-    public void setTier(int tier){
-        this.kekkai_tier = tier;
-    }
-
-
-    public void setCapacity(int capacity){
-        this.yoryoku_capacity = capacity;
-    }
-
-
-    public void setYoryoku(int energy){
-        this.yoryoku_amount = energy;
-    }
-
-
-    public int receiveYoryoku(int amount){
-        //容量に追加できたエネルギー量を返す
-        int received = Math.min(yoryoku_capacity - yoryoku_amount, amount);
-        yoryoku_amount += received;
-        return received;
-    }
-
-
-    public int extractYoryoku(int amount){
-        //出力できたエネルギー量を返す
-        int extracted = Math.min(yoryoku_amount, amount);
-        yoryoku_amount -= extracted;
-        return extracted;
     }
 }
