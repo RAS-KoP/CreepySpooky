@@ -1,10 +1,12 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.entity.EnergyWispEntity;
 import io.github.ras_kop.creepyspooky.entity.TestEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -23,4 +25,28 @@ public class EntityRegister {
             .sized(1.0F, 1.0F)
             .build(TestEntity.ENTITY_ID)
         );
+
+    public static final DeferredHolder<EntityType<?>, EntityType<EnergyWispEntity>> ENERGY_WISP = 
+        ENTITY_TYPES.register(
+            EnergyWispEntity.ENTITY_ID,
+            () -> EntityType.Builder.<EnergyWispEntity>of(
+                EnergyWispEntity::new,
+                MobCategory.CREATURE
+            )
+            .sized(1.0F, 1.0F)
+            .build(EnergyWispEntity.ENTITY_ID)
+        );
+
+
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(
+            EntityRegister.TEST_ENTITY.get(),
+            TestEntity.createAttributes().build()
+        );
+
+        event.put(
+            EntityRegister.ENERGY_WISP.get(),
+            EnergyWispEntity.createAttributes().build()
+        );
+    }
 }

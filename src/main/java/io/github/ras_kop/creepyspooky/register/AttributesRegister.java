@@ -1,13 +1,10 @@
 package io.github.ras_kop.creepyspooky.register;
 
-import io.github.ras_kop.creepyspooky.entity.TestEntity;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import io.github.ras_kop.creepyspooky.attribute.EnergyWispAttribute;
+import net.neoforged.bus.api.IEventBus;
 
 public class AttributesRegister {
-    public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(
-            EntityRegister.TEST_ENTITY.get(),
-            TestEntity.createAttributes().build()
-        );
+    public static void register(IEventBus modEventBus){
+        EnergyWispAttribute.ATTRIBUTES.register(modEventBus);
     }
 }
