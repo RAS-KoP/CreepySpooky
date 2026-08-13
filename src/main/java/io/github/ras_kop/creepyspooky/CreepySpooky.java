@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
+import io.github.ras_kop.creepyspooky.register.BlockRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
 import io.github.ras_kop.creepyspooky.register.EntityRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -81,6 +82,8 @@ public class CreepySpooky {
         CREATIVE_MODE_TABS.register(modEventBus);
 
         AttributesRegister.register(modEventBus);
+
+        BlockRegister.register(modEventBus);
 
         EntityRegister.ENTITY_TYPES.register(modEventBus);
         modEventBus.addListener(EntityRegister::registerAttributes);
