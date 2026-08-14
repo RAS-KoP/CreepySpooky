@@ -34,6 +34,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import io.github.ras_kop.creepyspooky.block.CreepyFurnace; //かまどインポートしてみる
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(CreepySpooky.MODID)
@@ -53,6 +54,27 @@ public class CreepySpooky {
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
     // Creates a new BlockItem with the id "creepyspooky:example_block", combining the namespace and path
     public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
+
+    //かまどブロックの登録
+    public static final DeferredBlock<Block> CREEPY_FURNACE =
+        BLOCKS.register(
+                "creepy_furnace",
+                registryName -> new CreepyFurnace(
+                        BlockBehaviour.Properties.of()
+                                .setId(registryName)
+                                .strength(3.0F)
+                                .requiresCorrectToolForDrops()
+                )
+        );
+    //かまどブロックアイテムの登録
+    public static final DeferredItem<BlockItem> CREEPY_FURNACE_ITEM =
+        ITEMS.register(
+                "creepy_furnace",
+                () -> new BlockItem(
+                        CREEPY_FURNACE.get(),
+                        new Item.Properties()
+                )
+        );
 
     // Creates a new food item with the id "creepyspooky:example_id", nutrition 1 and saturation 2
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
