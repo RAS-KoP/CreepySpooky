@@ -1,5 +1,7 @@
 package io.github.ras_kop.creepyspooky.block;
 
+import java.util.Properties;
+
 import javax.annotation.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -12,6 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class HokoraInterfaceBlock extends BaseEntityBlock{
 
+    private static final MapCodec<EnergyBlock> CODEC =
+            simpleCodec(EnergyBlock::new);
+
     public HokoraInterfaceBlock(Properties properties) {
         super(properties);
     }
@@ -19,12 +24,11 @@ public class HokoraInterfaceBlock extends BaseEntityBlock{
     @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos arg0, BlockState arg1) {
-        return new HokoraMultiblockBlockEntity(arg0, arg1)
+        return new HokoraMultiblockBlockEntity(arg0, arg1);
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'codec'");
+        return CODEC;
     }
 }
