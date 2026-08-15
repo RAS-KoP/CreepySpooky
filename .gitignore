@@ -41,3 +41,9 @@ repo/
 
 ### Local files ###
 /local/
+
+### Obsidian / claude-obsidian ###
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/workspace-visual.json
+.obsidian/plugins/*/data.json

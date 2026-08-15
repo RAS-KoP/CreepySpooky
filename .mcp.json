@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "obsidian-vault": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@bitbonsai/mcpvault@latest",
+        "/Users/satouryu1120/RAS-KoP/CreepySpooky"
+      ]
+    }
+  }
+}
