@@ -58,25 +58,4 @@ public class EntityRegister {
             EnergyWispEntity.createAttributes().build()
         );
     }
-
-
-    //ここからブロックエンティティ系
-
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIY_TYPES =
-        DeferredRegister.create(
-            Registries.BLOCK_ENTITY_TYPE,
-            CreepySpooky.MODID
-        );
-
-    public static final DeferredHolder<
-            BlockEntityType<?>, 
-            BlockEntityType<HokoraMultiblockBlockEntity>
-        > HOKORA_MULTIBLOCK_BLOCKENTITY = BLOCK_ENTITIY_TYPES.register(
-            HokoraMultiblockBlockEntity.ENTITY_ID,
-            () -> BlockEntityType.Builder.of(
-                HokoraMultiblockBlockEntity::new,
-                BlockRegister.HOKORA_INTERFACE_BLOCK.get()
-            ).build(null)
-        );
-    
 }
