@@ -34,4 +34,10 @@ public class ItemRegister {
             )
         );
 
+    public static final DeferredItem<BlockItem> HOKORA_INTERFACE_BLOCK_ITEM =
+        ITEMS.registerSimpleBlockItem(
+            "hokora_interface_block",
+            BlockRegister.HOKORA_INTERFACE_BLOCK
+        );
+
 }

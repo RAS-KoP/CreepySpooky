@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.block.HokoraInterfaceBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,6 +35,15 @@ public class BlockRegister {
             "example_block", 
             () -> new Block(
                 BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+            )
+        );
+
+
+    public static final DeferredHolder<Block, Block> HOKORA_INTERFACE_BLOCK =
+        BLOCKS.register(
+            HokoraInterfaceBlock.BLOCK_ID,
+            () -> new HokoraInterfaceBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE)
             )
         );
 }

@@ -8,14 +8,25 @@ import com.mojang.serialization.MapCodec;
 
 import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class HokoraInterfaceBlock extends BaseEntityBlock{
 
-    private static final MapCodec<EnergyBlock> CODEC =
-            simpleCodec(EnergyBlock::new);
+    public static final String BLOCK_ID = "hokora_interface_block";
+
+    private static final MapCodec<HokoraInterfaceBlock> CODEC =
+            simpleCodec(HokoraInterfaceBlock::new);
 
     public HokoraInterfaceBlock(Properties properties) {
         super(properties);
@@ -30,5 +41,40 @@ public class HokoraInterfaceBlock extends BaseEntityBlock{
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    public ItemInteractionResult useItemOn(
+        ItemStack stack,
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        InteractionHand hand,
+        BlockHitResult hitResult) {
+
+        System.out.println("useItemOn called");
+
+        player.sendSystemMessage(
+                Component.literal("木の棒で右クリックしました")
+        );
+
+        if (!level.isClientSide
+            && stack.is(Items.STICK)) {
+
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+
+        if (blockEntity instanceof HokoraMultiblockBlockEntity hokora) {
+            player.sendSystemMessage(
+                Component.literal(
+                    "Energy: " + hokora.getYoryoku()
+                )
+            );
+        }
+
+            return ItemInteractionResult.SUCCESS;
+        }
+
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 }

@@ -3,9 +3,11 @@ package io.github.ras_kop.creepyspooky.register;
 import io.github.ras_kop.creepyspooky.CreepySpooky;
 import io.github.ras_kop.creepyspooky.entity.EnergyWispEntity;
 import io.github.ras_kop.creepyspooky.entity.TestEntity;
+import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -13,7 +15,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class EntityRegister {
     
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-        DeferredRegister.create(Registries.ENTITY_TYPE, CreepySpooky.MODID);
+        DeferredRegister.create(
+            Registries.ENTITY_TYPE, 
+            CreepySpooky.MODID
+        );
 
     public static final DeferredHolder<EntityType<?>, EntityType<TestEntity>> TEST_ENTITY = 
         ENTITY_TYPES.register(
@@ -49,4 +54,25 @@ public class EntityRegister {
             EnergyWispEntity.createAttributes().build()
         );
     }
+
+
+    //ここからブロックエンティティ系
+
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIY_TYPES =
+        DeferredRegister.create(
+            Registries.BLOCK_ENTITY_TYPE,
+            CreepySpooky.MODID
+        );
+
+    public static final DeferredHolder<
+            BlockEntityType<?>, 
+            BlockEntityType<HokoraMultiblockBlockEntity>
+        > HOKORA_MULTIBLOCK_BLOCKENTITY = BLOCK_ENTITIY_TYPES.register(
+            HokoraMultiblockBlockEntity.ENTITY_ID,
+            () -> BlockEntityType.Builder.of(
+                HokoraMultiblockBlockEntity::new,
+                BlockRegister.HOKORA_INTERFACE_BLOCK.get()
+            ).build(null)
+        );
+    
 }
