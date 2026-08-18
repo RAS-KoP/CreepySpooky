@@ -1,24 +1,20 @@
 package io.github.ras_kop.creepyspooky;
 
+
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
+import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
+import io.github.ras_kop.creepyspooky.register.BlockRegister;
+import io.github.ras_kop.creepyspooky.register.CreativeTabRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
 import io.github.ras_kop.creepyspooky.register.EntityRegister;
+import io.github.ras_kop.creepyspooky.register.ItemRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -30,11 +26,6 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import io.github.ras_kop.creepyspooky.block.CreepyFurnace; //かまどインポートしてみる
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(CreepySpooky.MODID)
@@ -43,51 +34,7 @@ public class CreepySpooky {
     public static final String MODID = "creepyspooky";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "creepyspooky" namespace
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "creepyspooky" namespace
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "creepyspooky" namespace
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a new Block with the id "creepyspooky:example_block", combining the namespace and path
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
-    // Creates a new BlockItem with the id "creepyspooky:example_block", combining the namespace and path
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
-
-    //かまどブロックの登録
-    public static final DeferredBlock<Block> CREEPY_FURNACE =
-        BLOCKS.register(
-                "creepy_furnace",
-                registryName -> new CreepyFurnace(
-                        BlockBehaviour.Properties.of()
-                                .setId(registryName)
-                                .strength(3.0F)
-                                .requiresCorrectToolForDrops()
-                )
-        );
-    //かまどブロックアイテムの登録
-    public static final DeferredItem<BlockItem> CREEPY_FURNACE_ITEM =
-        ITEMS.register(
-                "creepy_furnace",
-                () -> new BlockItem(
-                        CREEPY_FURNACE.get(),
-                        new Item.Properties()
-                )
-        );
-
-    // Creates a new food item with the id "creepyspooky:example_id", nutrition 1 and saturation 2
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
-
-    // Creates a creative tab with the id "creepyspooky:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.creepyspooky")) //The language key for the title of your CreativeModeTab
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
-            .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
-            }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -95,16 +42,16 @@ public class CreepySpooky {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
-        BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
-        ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
-        CREATIVE_MODE_TABS.register(modEventBus);
+        CreativeTabRegister.register(modEventBus);
 
         AttributesRegister.register(modEventBus);
 
-        EntityRegister.ENTITY_TYPES.register(modEventBus);
+        BlockRegister.register(modEventBus);
+        ItemRegister.register(modEventBus);
+        BlockEntityRegister.register(modEventBus);
+
+        EntityRegister.register(modEventBus);
         modEventBus.addListener(EntityRegister::registerAttributes);
 
         // Register ourselves for server and other game events we are interested in.
@@ -141,7 +88,7 @@ public class CreepySpooky {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(EXAMPLE_BLOCK_ITEM);
+            event.accept(ItemRegister.EXAMPLE_BLOCK_ITEM);
         }
     }
 
