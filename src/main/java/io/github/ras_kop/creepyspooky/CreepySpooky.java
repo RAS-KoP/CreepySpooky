@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
+import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
 import io.github.ras_kop.creepyspooky.register.BlockRegister;
 import io.github.ras_kop.creepyspooky.register.CreativeTabRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
@@ -46,10 +47,11 @@ public class CreepySpooky {
 
         AttributesRegister.register(modEventBus);
 
-        ItemRegister.register(modEventBus);
         BlockRegister.register(modEventBus);
+        ItemRegister.register(modEventBus);
+        BlockEntityRegister.register(modEventBus);
 
-        EntityRegister.ENTITY_TYPES.register(modEventBus);
+        EntityRegister.register(modEventBus);
         modEventBus.addListener(EntityRegister::registerAttributes);
 
         // Register ourselves for server and other game events we are interested in.

@@ -7,12 +7,16 @@ import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEn
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class EntityRegister {
+
+    public static void register(IEventBus eventBus) {
+        ENTITY_TYPES.register(eventBus);
+    }
     
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
         DeferredRegister.create(
