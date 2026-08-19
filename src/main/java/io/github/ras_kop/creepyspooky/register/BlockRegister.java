@@ -1,7 +1,6 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
-import io.github.ras_kop.creepyspooky.block.CreepyFurnace;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,11 +34,9 @@ public class BlockRegister {
     public static final DeferredHolder<Block,Block> CREEPY_FURNACE =
         BLOCKS.register(
                 "creepy_furnace",
-                registryName -> new CreepyFurnace(
+                () -> new Block(
                         BlockBehaviour.Properties.of()
-                                .setId(registryName)
-                                .strength(3.0F)
-                                .requiresCorrectToolForDrops()
+                                .mapColor(MapColor.STONE)
                 )
         );
 
