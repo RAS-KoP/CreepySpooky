@@ -33,5 +33,15 @@ public class ItemRegister {
                     .build()
             )
         );
+    
+    //かまどブロックアイテムの登録
+    public static final DeferredItem<BlockItem> CREEPY_FURNACE_ITEM =
+        ITEMS.register(
+                "creepy_furnace",
+                () -> new BlockItem(
+                        BlockRegister.CREEPY_FURNACE.get(),
+                        new Item.Properties()
+                )
+        );
 
 }

@@ -1,12 +1,14 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.block.CreepyFurnace;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -28,6 +30,18 @@ public class BlockRegister {
 
     //public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExampleBlockEntity>> EXAMPLE_BLOCK_ENTITY = 
     //    BLOCK_ENTITIES.register("example", () -> BlockEntityType.Builder.of(ExampleBlockEntity::new, EXAMPLE_BLOCK_ENTITY.get()).build(null));
+
+    //かまどブロックの登録
+    public static final DeferredHolder<Block,Block> CREEPY_FURNACE =
+        BLOCKS.register(
+                "creepy_furnace",
+                registryName -> new CreepyFurnace(
+                        BlockBehaviour.Properties.of()
+                                .setId(registryName)
+                                .strength(3.0F)
+                                .requiresCorrectToolForDrops()
+                )
+        );
 
     public static final DeferredHolder<Block, Block> EXAMPLE_BLOCK = 
         BLOCKS.register(
