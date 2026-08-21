@@ -1,7 +1,7 @@
-package io.github.ras_kop.creepyspooky.renderer;
+package io.github.ras_kop.creepyspooky.renderer.block;
 
 import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEntity;
-import io.github.ras_kop.creepyspooky.model.HokoraInterfaceBlockModel;
+import io.github.ras_kop.creepyspooky.model.block.HokoraInterfaceBlockModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 

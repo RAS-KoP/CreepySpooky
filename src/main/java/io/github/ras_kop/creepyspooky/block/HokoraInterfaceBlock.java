@@ -39,8 +39,7 @@ public class HokoraInterfaceBlock extends BaseEntityBlock{
         super(properties);
 
         registerDefaultState(
-        stateDefinition.any()
-                .setValue(FACING, Direction.NORTH)
+            stateDefinition.any().setValue(FACING, Direction.NORTH)
         );
     }
 

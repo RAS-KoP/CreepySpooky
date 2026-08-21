@@ -1,4 +1,4 @@
-package io.github.ras_kop.creepyspooky.model;
+package io.github.ras_kop.creepyspooky.model.block;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
 import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEntity;
