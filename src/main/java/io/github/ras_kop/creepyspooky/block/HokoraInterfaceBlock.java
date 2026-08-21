@@ -115,10 +115,9 @@ public class HokoraInterfaceBlock extends BaseEntityBlock{
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
 
-        return defaultBlockState()
-            .setValue(
+        return defaultBlockState().setValue(
                 FACING,
-                context.getHorizontalDirection().getOpposite()
+                context.getHorizontalDirection()
             );
     }
 }

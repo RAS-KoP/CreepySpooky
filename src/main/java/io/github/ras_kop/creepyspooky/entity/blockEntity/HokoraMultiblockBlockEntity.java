@@ -34,7 +34,7 @@ public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlock
     public void checkMultiblock(){
         Direction facing = getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 
-        BlockPos backPos = getBlockPos().relative(facing.getOpposite());
+        BlockPos backPos = getBlockPos().relative(facing);
 
         multiBlock_flag = level.getBlockState(backPos).is(Blocks.OAK_SAPLING);
     }
