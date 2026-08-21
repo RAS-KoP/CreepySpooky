@@ -43,7 +43,7 @@ public class BlockRegister {
         BLOCKS.register(
             HokoraInterfaceBlock.BLOCK_ID,
             () -> new HokoraInterfaceBlock(
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE)
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).noOcclusion()
             )
         );
 }

@@ -9,10 +9,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class HokoraMultiblockBlockEntity extends BlockEntity{
+public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlockEntity{
 
     public static final String ENTITY_ID = "hokora_multiblock_blockentity";
+
+    private final AnimatableInstanceCache cache =
+        GeckoLibUtil.createInstanceCache(this);
 
     public boolean multiBlock_flag;
 
@@ -30,5 +37,16 @@ public class HokoraMultiblockBlockEntity extends BlockEntity{
         BlockPos backPos = getBlockPos().relative(facing.getOpposite());
 
         multiBlock_flag = level.getBlockState(backPos).is(Blocks.OAK_SAPLING);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+
+    }
+
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }
