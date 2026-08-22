@@ -88,7 +88,7 @@ public class CreepySpooky {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ItemRegister.EXAMPLE_BLOCK_ITEM);
+            event.accept(ItemRegister.EXAMPLE_BLOCK_ITEM.get());
         }
     }
 
