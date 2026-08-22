@@ -5,6 +5,8 @@ import io.github.ras_kop.creepyspooky.energy.KekkaiSystemComponent;
 import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,6 +31,7 @@ public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlock
     public HokoraMultiblockBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockEntityRegister.HOKORA_MULTIBLOCK_BLOCKENTITY.get(), pos, blockState);
         multiBlock_flag = false;
+        checkMultiblock();
     }
 
     public void checkMultiblock(){
@@ -48,5 +51,17 @@ public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlock
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putBoolean("MultiBlockFlag", multiBlock_flag);
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        multiBlock_flag = tag.getBoolean("MultiBlockFlag");
     }
 }

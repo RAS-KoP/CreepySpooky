@@ -21,7 +21,6 @@ public class EnergyWispTransportGoal extends Goal {
     }
 
 
-    private boolean use_flag = true;
     @Override
     public void tick() {        
         

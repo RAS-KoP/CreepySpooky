@@ -2,6 +2,7 @@ package io.github.ras_kop.creepyspooky.goal;
 
 import io.github.ras_kop.creepyspooky.entity.EnergyWispEntity;
 import io.github.ras_kop.creepyspooky.entity.EnergyWispEntity.WorkState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class EnergyWispInOutGoal extends Goal{
@@ -20,8 +21,7 @@ public class EnergyWispInOutGoal extends Goal{
 
     @Override
     public void tick() {
-
+        BlockPos target = mob.getTargetBlockPos();
         
     }
-    
 }

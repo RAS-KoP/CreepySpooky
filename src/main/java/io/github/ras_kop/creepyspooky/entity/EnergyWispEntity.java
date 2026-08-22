@@ -8,13 +8,18 @@ import javax.annotation.Nonnull;
 import io.github.ras_kop.creepyspooky.api.IYoryokuHolder;
 import io.github.ras_kop.creepyspooky.attribute.EnergyWispAttribute;
 import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
+import io.github.ras_kop.creepyspooky.goal.EnergyWispInOutGoal;
+import io.github.ras_kop.creepyspooky.goal.EnergyWispTransportGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -91,6 +96,18 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
 
         tag.putInt("YoryokuEnergyAmount", this.yoryoku_energy.getYoryoku());
         tag.putInt("YoryokuEnergyCapacity", this.yoryoku_energy.getCapacity());
+        tag.putInt("TargetNum", now_target);
+        tag.putString("WorkState", state.name());
+
+        ListTag list = new ListTag();
+        for (BlockPos pos : targets) {
+            CompoundTag posTag = new CompoundTag();
+            posTag.putInt("X", pos.getX());
+            posTag.putInt("Y", pos.getY());
+            posTag.putInt("Z", pos.getZ());
+            list.add(posTag);
+        }
+        tag.put("TargetPositions", list);
     }
 
     @Override
@@ -99,14 +116,44 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
 
         this.yoryoku_energy.setCapacity(tag.getInt("YoryokuEnergyCapacity"));
         this.yoryoku_energy.setYoryoku(tag.getInt("YoryokuEnergyAmount"));
+        now_target = tag.getInt("TargetNum");
+        state = WorkState.valueOf(tag.getString("WorkState"));
+
+        targets.clear();
+        ListTag list = tag.getList("TargetPositions", Tag.TAG_COMPOUND);
+        for (int i = 0; i < list.size(); i++) {
+            CompoundTag posTag = list.getCompound(i);
+            int x = posTag.getInt("X");
+            int y = posTag.getInt("Y");
+            int z = posTag.getInt("Z");
+            targets.add(new BlockPos(x, y, z));
+        }
     }
+
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(
+            1,
+            new EnergyWispTransportGoal(this)
+        );
+        this.goalSelector.addGoal(
+            2,
+            new EnergyWispInOutGoal(this)
+        );
+        this.goalSelector.addGoal(
+            3,
+            new RandomLookAroundGoal(this)
+        );
+    };
 
     
     //エネルギー系の処理
 
     public enum WorkState{
         InOut,
-        Transport
+        Transport,
+        Idle
     }
 
     private WorkState state;
