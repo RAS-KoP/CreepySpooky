@@ -37,8 +37,14 @@ public class TestEntity extends PathfinderMob implements GeoEntity{
     public void registerControllers(
         AnimatableManager.ControllerRegistrar controllers) {
 
-        controllers.add(new AnimationController<>(this, "animation", 0, this::TestAnimationController ));
-        
+        controllers.add(
+            new AnimationController<>(
+                this,
+                "animation",
+                0,
+                this::TestAnimationController
+            )
+        ); 
     }
     
     protected <E extends TestEntity> PlayState TestAnimationController(final AnimationState<E> event) {
