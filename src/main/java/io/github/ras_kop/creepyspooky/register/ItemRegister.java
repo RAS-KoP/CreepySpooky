@@ -29,7 +29,7 @@ public class ItemRegister {
         );
     
     //かまどブロックアイテムの登録
-    public static final DeferredItem<BlockItem> CREEPY_FURNACE_ITEM =
+    public static final DeferredHolder<Item, BlockItem> CREEPY_FURNACE_ITEM =
         ITEMS.register(
                 "creepy_furnace",
                 () -> new BlockItem(
