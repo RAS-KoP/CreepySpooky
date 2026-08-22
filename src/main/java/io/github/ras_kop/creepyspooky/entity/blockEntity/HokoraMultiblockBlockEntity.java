@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.entity.blockEntity;
 
 
+import io.github.ras_kop.creepyspooky.api.IKekkaiSystemHolder;
 import io.github.ras_kop.creepyspooky.energy.KekkaiSystemComponent;
 import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
 import net.minecraft.core.BlockPos;
@@ -16,7 +17,7 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlockEntity{
+public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlockEntity, IKekkaiSystemHolder{
 
     public static final String ENTITY_ID = "hokora_multiblock_blockentity";
 
@@ -25,8 +26,12 @@ public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlock
 
     public boolean multiBlock_flag;
 
-    public static final KekkaiSystemComponent kekkai_system = 
+    private static final KekkaiSystemComponent kekkai_system = 
         new KekkaiSystemComponent(0, 0);
+    @Override
+    public KekkaiSystemComponent getKekkaiSystemComponent() {
+        return kekkai_system;
+    }
 
     public HokoraMultiblockBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockEntityRegister.HOKORA_MULTIBLOCK_BLOCKENTITY.get(), pos, blockState);
