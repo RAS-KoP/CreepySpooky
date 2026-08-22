@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.item.HokoraInterfaceBlockItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -42,4 +43,13 @@ public class ItemRegister {
                 )
             )
         );
+        
+    public static final DeferredHolder<Item, HokoraInterfaceBlockItem> HOKORA_INTERFACE_BLOCK_ITEM =
+        ITEMS.register(
+        "hokora_interface_block",
+        () -> new HokoraInterfaceBlockItem(
+            BlockRegister.HOKORA_INTERFACE_BLOCK.get(),
+            new Item.Properties()
+        )
+    );
 }
