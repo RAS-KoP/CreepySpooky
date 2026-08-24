@@ -34,14 +34,16 @@ public class HokoraInterfaceBlockItem extends BlockItem implements GeoItem{
 
     @Override
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private final HokoraInterfaceBlockItemRenderer renderer = new HokoraInterfaceBlockItemRenderer();
+        consumer.accept(
+            new GeoRenderProvider() {
+                
+                private final HokoraInterfaceBlockItemRenderer renderer = new HokoraInterfaceBlockItemRenderer();
 
-            @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                return renderer;
+                @Override
+                public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
+                    return renderer;
+                }
             }
-        }
-    );
-}
+        );
+    }
 }

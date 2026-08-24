@@ -1,7 +1,7 @@
 package io.github.ras_kop.creepyspooky.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -39,7 +39,7 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         new YoryokuEnergyComponent(2000);
 
     @Override
-    public YoryokuEnergyComponent getEnergyComponent(){
+    public YoryokuEnergyComponent getYoryokuComponent(){
         return yoryoku_energy;
     }
 
@@ -47,7 +47,7 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         super(type, level);
         this.setNoGravity(true);
         this.noPhysics = true;
-        this.now_target = 0;
+        this.now_target = BlockWorkRole.HOME;
         this.state = WorkState.Transport;
     }
 
@@ -96,18 +96,22 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
 
         tag.putInt("YoryokuEnergyAmount", this.yoryoku_energy.getYoryoku());
         tag.putInt("YoryokuEnergyCapacity", this.yoryoku_energy.getCapacity());
-        tag.putInt("TargetNum", now_target);
-        tag.putString("WorkState", state.name());
+        tag.putString("EnergyWispTargetState", now_target.name());
+        tag.putString("EnergyWispWorkState", state.name());
 
         ListTag list = new ListTag();
-        for (BlockPos pos : targets) {
-            CompoundTag posTag = new CompoundTag();
-            posTag.putInt("X", pos.getX());
-            posTag.putInt("Y", pos.getY());
-            posTag.putInt("Z", pos.getZ());
-            list.add(posTag);
+        for (Map.Entry<BlockWorkRole, BlockPos> entry : targets.entrySet()) { 
+            CompoundTag Tags = new CompoundTag();
+            BlockWorkRole role = entry.getKey();
+            BlockPos pos = entry.getValue();
+
+            Tags.putString("Role", role.name());
+            Tags.putInt("X", pos.getX());
+            Tags.putInt("Y", pos.getY());
+            Tags.putInt("Z", pos.getZ());
+            list.add(Tags);
         }
-        tag.put("TargetPositions", list);
+        tag.put("EnergyWispTargetPositions", list);
     }
 
     @Override
@@ -116,17 +120,19 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
 
         this.yoryoku_energy.setCapacity(tag.getInt("YoryokuEnergyCapacity"));
         this.yoryoku_energy.setYoryoku(tag.getInt("YoryokuEnergyAmount"));
-        now_target = tag.getInt("TargetNum");
-        state = WorkState.valueOf(tag.getString("WorkState"));
+        now_target = BlockWorkRole.valueOf(tag.getString("EnergyWispTargetState"));
+        state = WorkState.valueOf(tag.getString("EnergyWispWorkState"));
 
         targets.clear();
-        ListTag list = tag.getList("TargetPositions", Tag.TAG_COMPOUND);
+        ListTag list = tag.getList("EnergyWispTargetPositions", Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag posTag = list.getCompound(i);
-            int x = posTag.getInt("X");
-            int y = posTag.getInt("Y");
-            int z = posTag.getInt("Z");
-            targets.add(new BlockPos(x, y, z));
+            CompoundTag Tags = list.getCompound(i);
+
+            BlockWorkRole role = BlockWorkRole.valueOf(tag.getString("Role"));
+            int x = Tags.getInt("X");
+            int y = Tags.getInt("Y");
+            int z = Tags.getInt("Z");
+            targets.put(role, new BlockPos(x, y, z));
         }
     }
 
@@ -156,6 +162,12 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         Idle
     }
 
+    public enum BlockWorkRole{
+        HOME,
+        IMPORT,
+        EXPORT
+    }
+
     private WorkState state;
 
     public WorkState getState(){
@@ -166,30 +178,29 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         this.state = stat;
     }
 
-    private List<BlockPos> targets = new ArrayList<>();
-    private int now_target;
+    private Map<BlockWorkRole, BlockPos> targets = new HashMap<>();
+    private BlockWorkRole now_target;
     
 
-    public void addTargetBlock(BlockPos target){
-        this.targets.add(target);
+    public void setTargetBlock(BlockPos target, BlockWorkRole role){
+        this.targets.put(role, target);
     }
 
-    public void setHome(BlockPos home){
-        this.targets.set(0, home);
-    }
 
-    public BlockPos getTargetBlockPos(){
-        return targets.get(now_target);
+    public Map.Entry<BlockWorkRole, BlockPos> getTargetBlockPos(){
+        return Map.entry(now_target, targets.get(now_target));
     }
 
     public void nextTarget(){
-        if(targets.size() <= 1){
-            now_target = 0;
-            return;
+        if(now_target == BlockWorkRole.IMPORT){
+            now_target = BlockWorkRole.EXPORT;
+        }else{
+            now_target = BlockWorkRole.IMPORT;
         }
-        now_target++;
-        if(now_target >= targets.size()){
-            now_target -= targets.size()-1;
-        }
+    }
+
+    public void targetSetHome(){
+        now_target = BlockWorkRole.HOME;
+        state = WorkState.Transport;
     }
 }

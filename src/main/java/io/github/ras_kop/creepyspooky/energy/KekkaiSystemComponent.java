@@ -10,7 +10,7 @@ public class KekkaiSystemComponent implements IYoryokuHolder{
         new YoryokuEnergyComponent(2000);
 
     @Override
-    public YoryokuEnergyComponent getEnergyComponent(){
+    public YoryokuEnergyComponent getYoryokuComponent(){
         return yoryoku_energy;
     }
 
