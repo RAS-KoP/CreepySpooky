@@ -26,7 +26,7 @@ public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlock
 
     public boolean multiBlock_flag;
 
-    private static final KekkaiSystemComponent kekkai_system = 
+    private final KekkaiSystemComponent kekkai_system = 
         new KekkaiSystemComponent(0, 0);
     @Override
     public KekkaiSystemComponent getKekkaiSystemComponent() {
@@ -36,7 +36,6 @@ public class HokoraMultiblockBlockEntity extends BlockEntity implements GeoBlock
     public HokoraMultiblockBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockEntityRegister.HOKORA_MULTIBLOCK_BLOCKENTITY.get(), pos, blockState);
         multiBlock_flag = false;
-        checkMultiblock();
     }
 
     public void checkMultiblock(){
