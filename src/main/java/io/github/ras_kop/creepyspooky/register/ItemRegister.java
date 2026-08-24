@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.item.YoryokuWand;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -42,4 +43,12 @@ public class ItemRegister {
                 )
             )
         );
+
+    public static final DeferredHolder<Item, YoryokuWand> YORYOKU_WAND =
+        ITEMS.register(
+        "yoryoku_wand",
+        () -> new YoryokuWand(
+            new Item.Properties()
+        )
+    );    
 }
