@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"walk": {
+		"move.walk": {
 			"loop": true,
 			"bones": {
 				"left": {
@@ -22,7 +22,7 @@
 				}
 			}
 		},
-		"dash": {
+		"move.run": {
 			"animation_length": 0.8,
 			"bones": {
 				"left": {
