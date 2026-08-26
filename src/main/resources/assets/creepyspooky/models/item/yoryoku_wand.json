@@ -3,17 +3,27 @@
   "parent": "builtin/entity",
   "display": {
     "thirdperson_righthand": {
+      "rotation": [
+        37.25,
+        90,
+        0
+      ],
       "translation": [
-        -0.25,
-        -1.25,
-        0.25
+        0,
+        -0.75,
+        1.25
       ]
     },
     "thirdperson_lefthand": {
+      "rotation": [
+        37.25,
+        90,
+        0
+      ],
       "translation": [
-        -0.25,
-        -1.25,
-        0.25
+        0,
+        -0.75,
+        1.25
       ]
     },
     "firstperson_righthand": {
@@ -42,9 +52,9 @@
     },
     "ground": {
       "rotation": [
-        -3.6,
-        0.58,
-        -17.81
+        -3.599999999999909,
+        0.5799999999999272,
+        -17.809999999999945
       ],
       "translation": [
         -0.75,
@@ -56,10 +66,10 @@
       "rotation": [
         -180,
         0,
-        -147.5
+        -141.75
       ],
       "translation": [
-        -4.75,
+        -5.5,
         -7.75,
         0
       ],
