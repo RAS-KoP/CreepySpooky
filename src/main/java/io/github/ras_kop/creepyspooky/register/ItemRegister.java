@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.item.YoryokuWand;
 import io.github.ras_kop.creepyspooky.block.CreativeYoryokuResourceBlock;
 import io.github.ras_kop.creepyspooky.block.HokoraInterfaceBlock;
 import io.github.ras_kop.creepyspooky.item.DebugStick;
@@ -46,6 +47,14 @@ public class ItemRegister {
                 )
             )
         );
+
+    public static final DeferredHolder<Item, YoryokuWand> YORYOKU_WAND =
+        ITEMS.register(
+        "yoryoku_wand",
+        () -> new YoryokuWand(
+            new Item.Properties()
+        )
+    );    
         
     public static final DeferredHolder<Item, HokoraInterfaceBlockItem> HOKORA_INTERFACE_BLOCK_ITEM =
         ITEMS.register(
