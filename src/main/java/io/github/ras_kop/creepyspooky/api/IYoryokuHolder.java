@@ -16,19 +16,29 @@ public interface IYoryokuHolder {
 
     default void setCapacity(int capacity){
         getYoryokuComponent().setCapacity(capacity);
+        updateEntity();
     }
 
     default void setYoryoku(int energy){
         getYoryokuComponent().setYoryoku(energy);
+        updateEntity();
     }
 
     default int receiveYoryoku(int amount){
         //容量に追加できたエネルギー量を返す
-        return getYoryokuComponent().receiveYoryoku(amount);
+        int tmp = getYoryokuComponent().receiveYoryoku(amount);
+        updateEntity();
+        return tmp;
     }
 
     default int extractYoryoku(int amount){
         //出力できたエネルギー量を返す
-        return getYoryokuComponent().extractYoryoku(amount);
+        int tmp = getYoryokuComponent().extractYoryoku(amount);
+        updateEntity();
+        return tmp;
+    }
+
+    default void updateEntity(){
+
     }
 }

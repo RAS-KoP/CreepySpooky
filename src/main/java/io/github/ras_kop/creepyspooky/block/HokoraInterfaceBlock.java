@@ -72,7 +72,10 @@ public class HokoraInterfaceBlock extends BaseEntityBlock{
 
             if (blockEntity instanceof HokoraMultiblockBlockEntity hokora) {
                 player.sendSystemMessage(
-                    Component.literal("Energy: " + hokora.multiBlock_flag)
+                    Component.literal(
+                        "Energy: " + hokora.getKekkaiSystemComponent().getYoryoku()+
+                        "/"+ hokora.getKekkaiSystemComponent().getCapacity()
+                    )
                 );
             }
             return ItemInteractionResult.SUCCESS;

@@ -8,19 +8,29 @@ import javax.annotation.Nonnull;
 import io.github.ras_kop.creepyspooky.api.IYoryokuHolder;
 import io.github.ras_kop.creepyspooky.attribute.EnergyWispAttribute;
 import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
+import io.github.ras_kop.creepyspooky.entity.blockEntity.CreativeYoryokuResourceBlockBlockEntity;
 import io.github.ras_kop.creepyspooky.goal.EnergyWispInOutGoal;
 import io.github.ras_kop.creepyspooky.goal.EnergyWispTransportGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -49,6 +59,7 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         this.noPhysics = true;
         this.now_target = BlockWorkRole.HOME;
         this.state = WorkState.Transport;
+        this.idle_time = 0;
     }
 
 
@@ -91,7 +102,7 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
     }
 
     @Override
-    public void addAdditionalSaveData(@Nonnull CompoundTag tag) {
+    public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
         tag.putInt("YoryokuEnergyAmount", this.yoryoku_energy.getYoryoku());
@@ -112,10 +123,14 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
             list.add(Tags);
         }
         tag.put("EnergyWispTargetPositions", list);
+
+        System.out.println(
+            "EnergyWisp SAVE: " + this.getUUID()
+        );
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag tag) {
+    public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
         this.yoryoku_energy.setCapacity(tag.getInt("YoryokuEnergyCapacity"));
@@ -128,12 +143,16 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         for (int i = 0; i < list.size(); i++) {
             CompoundTag Tags = list.getCompound(i);
 
-            BlockWorkRole role = BlockWorkRole.valueOf(tag.getString("Role"));
+            BlockWorkRole role = BlockWorkRole.valueOf(Tags.getString("Role"));
             int x = Tags.getInt("X");
             int y = Tags.getInt("Y");
             int z = Tags.getInt("Z");
             targets.put(role, new BlockPos(x, y, z));
         }
+
+        System.out.println(
+            "EnergyWisp LOAD: " + this.getUUID()
+        );
     }
 
 
@@ -153,22 +172,54 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         );
     };
 
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (state == WorkState.Idle) {
+        idle_time++;
+
+        if (idle_time >= 60) {
+            this.kill();
+        }
+        } else {
+            idle_time = 0;
+        }
+    }
+
+
+    @Override
+    public InteractionResult mobInteract(
+            Player player,
+            InteractionHand hand
+    ) {
+        Level level = player.level();
+        if (!level.isClientSide) {
+            player.sendSystemMessage(
+                Component.literal("Energy: " + getYoryoku()+"/"+ getCapacity())
+            );
+        }
+        return InteractionResult.SUCCESS;
+    }
+
     
     //エネルギー系の処理
 
-    public enum WorkState{
+    public static enum WorkState{
         InOut,
         Transport,
         Idle
     }
 
-    public enum BlockWorkRole{
+    public static enum BlockWorkRole{
         HOME,
         IMPORT,
         EXPORT
     }
 
     private WorkState state;
+    private int idle_time;
 
     public WorkState getState(){
         return state;

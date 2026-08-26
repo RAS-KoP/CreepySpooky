@@ -30,10 +30,13 @@ public class EnergyWispTransportGoal extends Goal {
         Vec3 direction = Vec3.atCenterOf(target).subtract(mob.position());
 
         if(direction.length() <= 0.3){
-            mob.setState(WorkState.InOut);
+            
             if(mob.getTargetBlockPos().getKey() == BlockWorkRole.HOME){
+                //mob.nextTarget();
                 mob.setState(WorkState.Idle);
+                return;
             }
+            mob.setState(WorkState.InOut);
             return;
         }
 

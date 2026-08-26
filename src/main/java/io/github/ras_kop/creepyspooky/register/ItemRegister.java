@@ -3,6 +3,7 @@ package io.github.ras_kop.creepyspooky.register;
 import io.github.ras_kop.creepyspooky.CreepySpooky;
 import io.github.ras_kop.creepyspooky.block.CreativeYoryokuResourceBlock;
 import io.github.ras_kop.creepyspooky.block.HokoraInterfaceBlock;
+import io.github.ras_kop.creepyspooky.item.DebugStick;
 import io.github.ras_kop.creepyspooky.item.HokoraInterfaceBlockItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -61,6 +62,14 @@ public class ItemRegister {
             CreativeYoryokuResourceBlock.BLOCK_ID,
             () -> new BlockItem(
                 BlockRegister.CREATIVE_YORYOKU_RESOURCE_BLOCK.get(),
+                new Item.Properties()
+            )
+        );
+
+    public static final DeferredHolder<Item, DebugStick> DEBUG_STICK = 
+        ITEMS.register(
+            DebugStick.ITEM_ID,
+            () -> new DebugStick(
                 new Item.Properties()
             )
         );
