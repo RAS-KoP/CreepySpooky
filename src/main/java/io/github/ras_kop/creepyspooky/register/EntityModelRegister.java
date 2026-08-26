@@ -1,7 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
-import io.github.ras_kop.creepyspooky.renderer.EnergyWispRenderer;
-import io.github.ras_kop.creepyspooky.renderer.TestEntityRenderer;
+import io.github.ras_kop.creepyspooky.renderer.entity.EnergyWispRenderer;
+import io.github.ras_kop.creepyspooky.renderer.entity.TestEntityRenderer;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 public class EntityModelRegister {

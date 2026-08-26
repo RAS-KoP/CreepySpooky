@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "creepyspooky:block/creative_yoryoku_resource_block"
+    }
+}
