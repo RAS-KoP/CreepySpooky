@@ -32,7 +32,6 @@ public class EnergyWispTransportGoal extends Goal {
         if(direction.length() <= 0.3){
             
             if(mob.getTargetBlockPos().getKey() == BlockWorkRole.HOME){
-                //mob.nextTarget();
                 mob.setState(WorkState.Idle);
                 return;
             }
