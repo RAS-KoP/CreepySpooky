@@ -4,31 +4,41 @@ import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
 
 public interface IYoryokuHolder {
     
-    YoryokuEnergyComponent getEnergyComponent();
+    YoryokuEnergyComponent getYoryokuComponent();
 
     default int getYoryoku(){
-        return getEnergyComponent().getYoryoku();
+        return getYoryokuComponent().getYoryoku();
     }
 
     default int getCapacity(){
-        return getEnergyComponent().getCapacity();
+        return getYoryokuComponent().getCapacity();
     }
 
     default void setCapacity(int capacity){
-        getEnergyComponent().setCapacity(capacity);
+        getYoryokuComponent().setCapacity(capacity);
+        updateEntity();
     }
 
     default void setYoryoku(int energy){
-        getEnergyComponent().setYoryoku(energy);
+        getYoryokuComponent().setYoryoku(energy);
+        updateEntity();
     }
 
     default int receiveYoryoku(int amount){
         //容量に追加できたエネルギー量を返す
-        return getEnergyComponent().receiveYoryoku(amount);
+        int tmp = getYoryokuComponent().receiveYoryoku(amount);
+        updateEntity();
+        return tmp;
     }
 
     default int extractYoryoku(int amount){
         //出力できたエネルギー量を返す
-        return getEnergyComponent().extractYoryoku(amount);
+        int tmp = getYoryokuComponent().extractYoryoku(amount);
+        updateEntity();
+        return tmp;
+    }
+
+    default void updateEntity(){
+
     }
 }

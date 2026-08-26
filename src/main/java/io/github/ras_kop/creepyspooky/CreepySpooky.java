@@ -7,6 +7,7 @@ import com.mojang.logging.LogUtils;
 
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
 import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
+import io.github.ras_kop.creepyspooky.register.BlockModelRegister;
 import io.github.ras_kop.creepyspooky.register.BlockRegister;
 import io.github.ras_kop.creepyspooky.register.CreativeTabRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
@@ -60,9 +61,8 @@ public class CreepySpooky {
         NeoForge.EVENT_BUS.register(this);
         
         if(FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(
-                EntityModelRegister::register
-            );
+            modEventBus.addListener(EntityModelRegister::register);
+            modEventBus.addListener(BlockModelRegister::register);
         }
 
         // Register the item to a creative tab

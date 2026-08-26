@@ -1,20 +1,28 @@
 package io.github.ras_kop.creepyspooky.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.annotation.Nonnull;
 
 import io.github.ras_kop.creepyspooky.api.IYoryokuHolder;
 import io.github.ras_kop.creepyspooky.attribute.EnergyWispAttribute;
 import io.github.ras_kop.creepyspooky.energy.YoryokuEnergyComponent;
+import io.github.ras_kop.creepyspooky.goal.EnergyWispInOutGoal;
+import io.github.ras_kop.creepyspooky.goal.EnergyWispTransportGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -34,7 +42,7 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         new YoryokuEnergyComponent(2000);
 
     @Override
-    public YoryokuEnergyComponent getEnergyComponent(){
+    public YoryokuEnergyComponent getYoryokuComponent(){
         return yoryoku_energy;
     }
 
@@ -42,8 +50,9 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         super(type, level);
         this.setNoGravity(true);
         this.noPhysics = true;
-        this.now_target = 0;
+        this.now_target = BlockWorkRole.HOME;
         this.state = WorkState.Transport;
+        this.idle_time = 0;
     }
 
 
@@ -86,30 +95,124 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
     }
 
     @Override
-    public void addAdditionalSaveData(@Nonnull CompoundTag tag) {
+    public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
         tag.putInt("YoryokuEnergyAmount", this.yoryoku_energy.getYoryoku());
         tag.putInt("YoryokuEnergyCapacity", this.yoryoku_energy.getCapacity());
+        tag.putString("EnergyWispTargetState", now_target.name());
+        tag.putString("EnergyWispWorkState", state.name());
+
+        ListTag list = new ListTag();
+        for (Map.Entry<BlockWorkRole, BlockPos> entry : targets.entrySet()) { 
+            CompoundTag Tags = new CompoundTag();
+            BlockWorkRole role = entry.getKey();
+            BlockPos pos = entry.getValue();
+
+            Tags.putString("Role", role.name());
+            Tags.putInt("X", pos.getX());
+            Tags.putInt("Y", pos.getY());
+            Tags.putInt("Z", pos.getZ());
+            list.add(Tags);
+        }
+        tag.put("EnergyWispTargetPositions", list);
+
+        System.out.println(
+            "EnergyWisp SAVE: " + this.getUUID()
+        );
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag tag) {
+    public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
         this.yoryoku_energy.setCapacity(tag.getInt("YoryokuEnergyCapacity"));
         this.yoryoku_energy.setYoryoku(tag.getInt("YoryokuEnergyAmount"));
+        now_target = BlockWorkRole.valueOf(tag.getString("EnergyWispTargetState"));
+        state = WorkState.valueOf(tag.getString("EnergyWispWorkState"));
+
+        targets.clear();
+        ListTag list = tag.getList("EnergyWispTargetPositions", Tag.TAG_COMPOUND);
+        for (int i = 0; i < list.size(); i++) {
+            CompoundTag Tags = list.getCompound(i);
+
+            BlockWorkRole role = BlockWorkRole.valueOf(Tags.getString("Role"));
+            int x = Tags.getInt("X");
+            int y = Tags.getInt("Y");
+            int z = Tags.getInt("Z");
+            targets.put(role, new BlockPos(x, y, z));
+        }
+
+        System.out.println(
+            "EnergyWisp LOAD: " + this.getUUID()
+        );
+    }
+
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(
+            1,
+            new EnergyWispTransportGoal(this)
+        );
+        this.goalSelector.addGoal(
+            2,
+            new EnergyWispInOutGoal(this)
+        );
+        this.goalSelector.addGoal(
+            3,
+            new RandomLookAroundGoal(this)
+        );
+    };
+
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (state == WorkState.Idle) {
+        idle_time++;
+
+        if (idle_time >= 60) {
+            this.kill();
+        }
+        } else {
+            idle_time = 0;
+        }
+    }
+
+
+    @Override
+    public InteractionResult mobInteract(
+            Player player,
+            InteractionHand hand
+    ) {
+        Level level = player.level();
+        if (!level.isClientSide) {
+            player.sendSystemMessage(
+                Component.literal("Energy: " + getYoryoku()+"/"+ getCapacity())
+            );
+        }
+        return InteractionResult.SUCCESS;
     }
 
     
     //エネルギー系の処理
 
-    public enum WorkState{
+    public static enum WorkState{
         InOut,
-        Transport
+        Transport,
+        Idle
+    }
+
+    public static enum BlockWorkRole{
+        HOME,
+        IMPORT,
+        EXPORT
     }
 
     private WorkState state;
+    private int idle_time;
 
     public WorkState getState(){
         return state;
@@ -119,30 +222,29 @@ public class EnergyWispEntity extends FlyingMob implements GeoEntity, IYoryokuHo
         this.state = stat;
     }
 
-    private List<BlockPos> targets = new ArrayList<>();
-    private int now_target;
+    private Map<BlockWorkRole, BlockPos> targets = new HashMap<>();
+    private BlockWorkRole now_target;
     
 
-    public void addTargetBlock(BlockPos target){
-        this.targets.add(target);
+    public void setTargetBlock(BlockPos target, BlockWorkRole role){
+        this.targets.put(role, target);
     }
 
-    public void setHome(BlockPos home){
-        this.targets.set(0, home);
-    }
 
-    public BlockPos getTargetBlockPos(){
-        return targets.get(now_target);
+    public Map.Entry<BlockWorkRole, BlockPos> getTargetBlockPos(){
+        return Map.entry(now_target, targets.get(now_target));
     }
 
     public void nextTarget(){
-        if(targets.size() <= 1){
-            now_target = 0;
-            return;
+        if(now_target == BlockWorkRole.IMPORT){
+            now_target = BlockWorkRole.EXPORT;
+        }else{
+            now_target = BlockWorkRole.IMPORT;
         }
-        now_target++;
-        if(now_target >= targets.size()){
-            now_target -= targets.size()-1;
-        }
+    }
+
+    public void targetSetHome(){
+        now_target = BlockWorkRole.HOME;
+        state = WorkState.Transport;
     }
 }
