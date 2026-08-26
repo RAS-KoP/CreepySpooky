@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -40,21 +41,44 @@ public class YoryokuWand extends Item implements GeoItem {
                 "Walking",
                 5,
                 state -> {
+                    // 現在のItemDisplayContextを取得
+                    ItemDisplayContext perspective =
+                            state.getData(DataTickets.ITEM_RENDER_PERSPECTIVE);
+
+                    // 手に持って表示されているときだけアニメーション
+                    boolean isHeld =
+                            perspective == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND ||
+                            perspective == ItemDisplayContext.FIRST_PERSON_LEFT_HAND ||
+                            perspective == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND ||
+                            perspective == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
+
+                    if (!isHeld) {
+                        return PlayState.STOP;
+                    }
+
                     LocalPlayer player = Minecraft.getInstance().player;
-    
+
                     if (player == null) {
                         return PlayState.STOP;
                     }
-    
+
                     boolean isMoving =
-                        player.getDeltaMovement().horizontalDistanceSqr() > 0.0001;
-    
-                    return isMoving
-                        ? state.setAndContinue(DefaultAnimations.WALK)
-                        : PlayState.STOP;
+                            player.getDeltaMovement()
+                                .horizontalDistanceSqr() > 0.0001;
+
+                    return state.setAndContinue(
+                        isMoving
+                            ? DefaultAnimations.WALK
+                            : DefaultAnimations.IDLE
+                    );
                 }
             )
         );
+    }
+
+    @Override
+    public boolean isPerspectiveAware() {
+        return true;
     }
 
     @Override
