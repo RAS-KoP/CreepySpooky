@@ -3,7 +3,6 @@ package io.github.ras_kop.creepyspooky.register;
 import io.github.ras_kop.creepyspooky.CreepySpooky;
 import io.github.ras_kop.creepyspooky.entity.EnergyWispEntity;
 import io.github.ras_kop.creepyspooky.entity.TestEntity;
-import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
