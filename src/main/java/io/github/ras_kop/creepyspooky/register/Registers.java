@@ -19,7 +19,7 @@ public class Registers {
         CreativeTabRegister.register(modEventBus);
 
         AttributesRegister.register(modEventBus);
-        DataComponentRegister.register(modEventBus);
+        DateComponentRegister.register(modEventBus);
 
         BlockRegister.register(modEventBus);
         ItemRegister.register(modEventBus);

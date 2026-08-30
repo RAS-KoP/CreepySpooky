@@ -12,7 +12,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class ModDataComponents {
+public class ModDateComponents {
 
     public static void register(@Nonnull IEventBus modEventBus){
         DATA_COMPONENTS.register(modEventBus);
@@ -32,7 +32,7 @@ public class ModDataComponents {
             "yoryoku_energy",
             builder -> builder.persistent(Codec.INT)
         );
-        
+
 
     @SuppressWarnings("null")
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> STORED_BLOCK_POS =

@@ -10,7 +10,7 @@ import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
 import io.github.ras_kop.creepyspooky.register.BlockModelRegister;
 import io.github.ras_kop.creepyspooky.register.BlockRegister;
 import io.github.ras_kop.creepyspooky.register.CreativeTabRegister;
-import io.github.ras_kop.creepyspooky.register.DataComponentRegister;
+import io.github.ras_kop.creepyspooky.register.DateComponentRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
 import io.github.ras_kop.creepyspooky.register.EntityRegister;
 import io.github.ras_kop.creepyspooky.register.ItemRegister;
