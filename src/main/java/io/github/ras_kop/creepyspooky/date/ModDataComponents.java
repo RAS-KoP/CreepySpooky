@@ -12,7 +12,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class ModDateComponents {
+public class ModDataComponents {
 
     public static void register(@Nonnull IEventBus modEventBus){
         DATA_COMPONENTS.register(modEventBus);
