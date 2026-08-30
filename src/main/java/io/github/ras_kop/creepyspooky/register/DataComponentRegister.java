@@ -2,7 +2,7 @@ package io.github.ras_kop.creepyspooky.register;
 
 import javax.annotation.Nonnull;
 
-import io.github.ras_kop.creepyspooky.date.ModDataComponents;
+import io.github.ras_kop.creepyspooky.data.ModDataComponents;
 import net.neoforged.bus.api.IEventBus;
 
 public class DataComponentRegister {

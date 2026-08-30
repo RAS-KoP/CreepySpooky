@@ -1,4 +1,4 @@
-package io.github.ras_kop.creepyspooky.date;
+package io.github.ras_kop.creepyspooky.data;
 
 import javax.annotation.Nonnull;
 
