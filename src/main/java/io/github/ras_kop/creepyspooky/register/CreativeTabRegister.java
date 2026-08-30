@@ -24,7 +24,9 @@ public class CreativeTabRegister {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ItemRegister.EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(ItemRegister.EXAMPLE_ITEM.get());
-                output.accept(ItemRegister.YORYOKU_WAND.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(ItemRegister.DEBUG_STICK.get());
+                output.accept(ItemRegister.CREATIVE_YORYOKU_RESOURCE_BLOCK_ITEM.get());
+                output.accept(ItemRegister.YORYOKU_WAND.get());
+                output.accept(ItemRegister.HOKORA_INTERFACE_BLOCK_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 }
