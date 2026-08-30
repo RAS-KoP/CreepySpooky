@@ -121,7 +121,7 @@ public class HokoraInterfaceBlock extends BaseEntityBlock{
 
         return defaultBlockState().setValue(
                 FACING,
-                context.getHorizontalDirection()
+                context.getHorizontalDirection().getOpposite()
             );
     }
 
