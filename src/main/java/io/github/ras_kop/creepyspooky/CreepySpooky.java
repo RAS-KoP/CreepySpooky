@@ -7,11 +7,14 @@ import com.mojang.logging.LogUtils;
 
 import io.github.ras_kop.creepyspooky.register.AttributesRegister;
 import io.github.ras_kop.creepyspooky.register.BlockEntityRegister;
+import io.github.ras_kop.creepyspooky.register.BlockModelRegister;
 import io.github.ras_kop.creepyspooky.register.BlockRegister;
 import io.github.ras_kop.creepyspooky.register.CreativeTabRegister;
+import io.github.ras_kop.creepyspooky.register.DataComponentRegister;
 import io.github.ras_kop.creepyspooky.register.EntityModelRegister;
 import io.github.ras_kop.creepyspooky.register.EntityRegister;
 import io.github.ras_kop.creepyspooky.register.ItemRegister;
+import io.github.ras_kop.creepyspooky.register.Registers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
@@ -39,40 +42,10 @@ public class CreepySpooky {
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public CreepySpooky(IEventBus modEventBus, ModContainer modContainer) {
-        // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
-
-        // Register the Deferred Register to the mod event bus so tabs get registered
-        CreativeTabRegister.register(modEventBus);
-
-        AttributesRegister.register(modEventBus);
-
-        BlockRegister.register(modEventBus);
-        ItemRegister.register(modEventBus);
-        BlockEntityRegister.register(modEventBus);
-
-        EntityRegister.register(modEventBus);
-        modEventBus.addListener(EntityRegister::registerAttributes);
-
-        // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (CreepySpooky) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
-        NeoForge.EVENT_BUS.register(this);
-        
-        if(FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(
-                EntityModelRegister::register
-            );
-        }
-
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
-
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        Registers.register(this, modEventBus, modContainer);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
+    public void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
 
@@ -86,7 +59,7 @@ public class CreepySpooky {
     }
 
     // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+    public void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ItemRegister.EXAMPLE_BLOCK_ITEM.get());
         }

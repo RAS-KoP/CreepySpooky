@@ -1,7 +1,7 @@
-package io.github.ras_kop.creepyspooky.renderer;
+package io.github.ras_kop.creepyspooky.renderer.entity;
 
 import io.github.ras_kop.creepyspooky.entity.EnergyWispEntity;
-import io.github.ras_kop.creepyspooky.model.EnergyWispModel;
+import io.github.ras_kop.creepyspooky.model.entity.EnergyWispModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

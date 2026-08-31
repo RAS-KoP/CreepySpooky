@@ -18,7 +18,10 @@ public class EntityRegister {
     }
     
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-        DeferredRegister.create(Registries.ENTITY_TYPE, CreepySpooky.MODID);
+        DeferredRegister.create(
+            Registries.ENTITY_TYPE, 
+            CreepySpooky.MODID
+        );
 
     public static final DeferredHolder<EntityType<?>, EntityType<TestEntity>> TEST_ENTITY = 
         ENTITY_TYPES.register(
