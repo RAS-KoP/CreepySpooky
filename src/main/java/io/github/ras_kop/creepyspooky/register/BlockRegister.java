@@ -1,6 +1,7 @@
 package io.github.ras_kop.creepyspooky.register;
 
 import io.github.ras_kop.creepyspooky.CreepySpooky;
+import io.github.ras_kop.creepyspooky.block.CreepyFurnacePart;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,10 +35,26 @@ public class BlockRegister {
     public static final DeferredHolder<Block,Block> CREEPY_FURNACE =
         BLOCKS.register(
                 "creepy_furnace",
-                () -> new Block(
+                () -> new new CreepyFurnace(
                         BlockBehaviour.Properties.of()
                                 .mapColor(MapColor.STONE)
+                                .strength(3.0F)
+                                .noOcclusion()
                 )
+        );
+
+    // かまどの透明な構成ブロックを登録
+    public static final DeferredHolder<Block, Block> CREEPY_FURNACE_PART =
+        BLOCKS.register(
+            "creepy_furnace_part",
+            () -> new CreepyFurnacePart(
+                BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(3.0F)
+                    .noOcclusion()
+                    .noLootTable()
+                    .noTerrainParticles()
+            )
         );
 
     public static final DeferredHolder<Block, Block> EXAMPLE_BLOCK = 
