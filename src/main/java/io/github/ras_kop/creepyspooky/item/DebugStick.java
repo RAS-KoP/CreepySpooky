@@ -2,6 +2,7 @@ package io.github.ras_kop.creepyspooky.item;
 
 import io.github.ras_kop.creepyspooky.api.IKekkaiSystemHolder;
 import io.github.ras_kop.creepyspooky.api.IYoryokuHolder;
+import io.github.ras_kop.creepyspooky.data.ModDataComponents;
 import io.github.ras_kop.creepyspooky.entity.blockEntity.HokoraMultiblockBlockEntity;
 import io.github.ras_kop.creepyspooky.register.BlockRegister;
 import net.minecraft.core.BlockPos;
@@ -65,18 +66,6 @@ public class DebugStick extends Item{
         int export_z = tag.getInt("Export_Z");
         BlockPos export_pos = new BlockPos(export_x, export_y, export_z);
 
-        player.sendSystemMessage(
-            Component.literal("Import: " + "X."+import_x + "Y."+import_y + "Z."+import_z)
-        );
-
-        player.sendSystemMessage(
-            Component.literal("Home: " + "X."+home_x + "Y."+home_y + "Z."+home_z)
-        );
-
-        player.sendSystemMessage(
-            Component.literal("Export: " + "X."+export_x + "Y."+export_y + "Z."+export_z)
-        );
-
         // Shiftを押しているか
         if (player.isShiftKeyDown()) {
 
@@ -85,6 +74,8 @@ public class DebugStick extends Item{
             tag.putInt("Export_X", pos.getX());
             tag.putInt("Export_Y", pos.getY());
             tag.putInt("Export_Z", pos.getZ());
+
+            stack.set(ModDataComponents.TARGET_BLOCK_POS, pos);
 
             export_x = tag.getInt("Export_X");
             export_y = tag.getInt("Export_Y");
@@ -131,6 +122,19 @@ public class DebugStick extends Item{
             }
         }
 
+
+        player.sendSystemMessage(
+            Component.literal("Import: " + "X."+import_x + "Y."+import_y + "Z."+import_z)
+        );
+
+        player.sendSystemMessage(
+            Component.literal("Home: " + "X."+home_x + "Y."+home_y + "Z."+home_z)
+        );
+
+        player.sendSystemMessage(
+            Component.literal("Export: " + "X."+export_x + "Y."+export_y + "Z."+export_z)
+        );
+        
         if(level.getBlockState(home_pos).is(BlockRegister.HOKORA_INTERFACE_BLOCK)){
             player.sendSystemMessage(
                 Component.literal("home: OK")

@@ -35,9 +35,9 @@ public class ModDataComponents {
 
 
     @SuppressWarnings("null")
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> STORED_BLOCK_POS =
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TARGET_BLOCK_POS =
         DATA_COMPONENTS.registerComponentType(
-            "stored_block_pos",
+            "target_block_pos",
             builder -> builder.persistent(BlockPos.CODEC)
         );
 }
