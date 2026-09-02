@@ -1,0 +1,6 @@
+{
+  "parent": "builtin/entity",
+  "textures": {
+    "particle": "creepyspooky:block/hokora_interface_block_particle"
+  }
+}
