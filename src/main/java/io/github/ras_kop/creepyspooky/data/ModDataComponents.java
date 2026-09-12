@@ -35,9 +35,23 @@ public class ModDataComponents {
 
 
     @SuppressWarnings("null")
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TARGET_BLOCK_POS =
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TARGET_BLOCK_POS_HOME =
         DATA_COMPONENTS.registerComponentType(
-            "target_block_pos",
+            "target_block_pos_home",
+            builder -> builder.persistent(BlockPos.CODEC)
+        );
+
+    @SuppressWarnings("null")
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TARGET_BLOCK_POS_IMPORT =
+        DATA_COMPONENTS.registerComponentType(
+            "target_block_pos_import",
+            builder -> builder.persistent(BlockPos.CODEC)
+        );
+
+    @SuppressWarnings("null")
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TARGET_BLOCK_POS_EXPORT =
+        DATA_COMPONENTS.registerComponentType(
+            "target_block_pos_export",
             builder -> builder.persistent(BlockPos.CODEC)
         );
 }
