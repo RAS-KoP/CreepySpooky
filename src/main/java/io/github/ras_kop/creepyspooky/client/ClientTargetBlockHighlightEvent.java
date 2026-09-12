@@ -35,7 +35,9 @@ public class ClientTargetBlockHighlightEvent {
 
         ItemStack stack = minecraft.player.getMainHandItem();
 
-        if (!stack.is(ItemRegister.DEBUG_STICK.get())) {
+        if (
+            !stack.is(ItemRegister.YORYOKU_WAND.get())
+        ) {
             return;
         }
 
