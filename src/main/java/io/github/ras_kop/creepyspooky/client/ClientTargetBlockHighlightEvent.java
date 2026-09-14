@@ -99,31 +99,6 @@ public class ClientTargetBlockHighlightEvent {
             poseStack.popPose();
         }
 
-        if(export_pos != null){
-            poseStack.pushPose();
-
-            // カメラを基準にした座標へ変換
-            double x = export_pos.getX() - camera.getPosition().x;
-            double y = export_pos.getY() - camera.getPosition().y;
-            double z = export_pos.getZ() - camera.getPosition().z;
-
-            poseStack.translate(x, y, z);
-
-            // ブロック1個分の枠を描画
-            LevelRenderer.renderLineBox(
-                poseStack,
-                vertexConsumer,
-                0.0, 0.0, 0.0,
-                1.0, 1.0, 1.0,
-                0.0F, 0.0F, 1.0F,
-                1.0F
-            );
-
-            poseStack.popPose();
-        }
-
-
-
         buffer.endBatch(RenderType.lines());
     }
 }
